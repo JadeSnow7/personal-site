@@ -2,7 +2,7 @@
 
 一个面向 AI Engineering 的个人编辑部与 runtime console，记录 Agent Runtime、AI Native Tools、Harness Engineering、Rust、LLM Application 以及 Forge Studio 相关的设计、实验和工程 notes。
 
-站点目标 URL 配置为 `https://aodonghu.dev`。当前仓库只包含部署配置与构建产物生成路径，目标域名尚需在 Cloudflare Pages 中绑定，并完成线上浏览器验收；README 不代表站点已经部署。
+站点目标 URL 配置为 `https://aodonghu.dev`，Cloudflare Pages 项目名为 `aodonghu-ai-hub`，预期默认地址为 `https://aodonghu-ai-hub.pages.dev/`。当前 Pages 项目已创建，尚待配置 GitHub Secrets、执行首次线上部署并绑定自定义域名；README 不代表站点已经上线。
 
 ## 技术栈
 
@@ -43,7 +43,7 @@ checkout → Node 24 → `npm ci` → `npm run check` → `npm run build` → Cl
 生产部署使用 `cloudflare/wrangler-action@v4`，命令为：
 
 ```bash
-pages deploy dist --project-name=personal-site
+pages deploy dist --project-name=aodonghu-ai-hub
 ```
 
 workflow 具有生产部署并发控制；新的生产运行会取消同组中仍在进行的旧运行。
@@ -52,7 +52,7 @@ workflow 具有生产部署并发控制；新的生产运行会取消同组中�
 
 首次运行 workflow 前，需要：
 
-1. 在 Cloudflare Pages 创建项目 `personal-site`。
+1. 在 Cloudflare Pages 创建项目 `aodonghu-ai-hub`（预期默认地址：`https://aodonghu-ai-hub.pages.dev/`）。
 2. 确认项目使用 Wrangler Direct Upload 和静态产物目录 `dist`。
 3. 创建具备 Pages 部署权限的 Cloudflare API Token。
 4. 在仓库 Settings → Secrets and variables → Actions 中添加：
