@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
+import Terminal from '../components/Terminal';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { absoluteUrl } from '../utils/seo';
+import { projectPriority } from '../utils/projects';
+
+const githubUrl = 'https://github.com/JadeSnow7/personal-site';
+const directions = ['AI Agent', 'Harness Engineering', 'Rust', 'Go', 'Frontend', 'Game Development'];
+const projects = await getCollection('projects');
+const featuredProjects = projects.filter(({ data }) => data.featured && !data.draft).sort((a, b) => projectPriority(a.id) - projectPriority(b.id));
+const articles = (await getCollection('blog'))
+  .filter(({ data }) => !data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const activity = [
+  ['NOW', 'Shipping the first editorial systems layer'],
+  ['NEXT', 'Documenting agent runtime boundaries'],
+  ['SIGNAL', 'Rust + Go remain the current core stack'],
+];
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '胡傲东',
+  jobTitle: 'AI Engineer / Agent Runtime Developer',
+  url: absoluteUrl('/'),
+  knowsAbout: ['AI Agent', 'Harness Engineering', 'Rust', 'LLM Application', 'Forge Studio'],
+};
+---
+<BaseLayout title="胡傲东 · AI Engineer — Agent Runtime & AI Native Tools" description="胡傲东，AI Engineer，专注于 Agent Runtime、AI Native Tools、Harness Engineering 与可靠的软件系统。" jsonLd={personSchema}>
+  <section class="home-hero mx-auto grid max-w-6xl gap-12 px-5 pb-20 pt-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] lg:px-8 lg:pb-28 lg:pt-24" aria-labelledby="hero-title">
+    <div>
+      <p class="eyebrow">AI ENGINEER / FIELD OFFICE 001</p>
+      <h1 id="hero-title" class="display-face mt-5 max-w-4xl text-5xl leading-[0.94] tracking-[-0.05em] sm:text-7xl lg:text-8xl">Building Agent Runtime &amp; AI Native Tools.</h1>
+      <p class="mt-8 max-w-2xl text-lg leading-8 text-[var(--muted)]">我是胡傲东，专注于把 AI 能力变成可观察、可测试、真正可用的工程系统。</p>
+      <div class="mt-9 flex flex-wrap gap-3" aria-label="Primary actions"><a class="button button-signal" href="/projects">View Projects <span aria-hidden="true">↗</span></a><a class="button" href="/blog">Read Blog <span aria-hidden="true">↗</span></a><a class="button" href={githubUrl} target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <aside class="runtime-panel self-end" aria-label="Runtime trace"><div class="flex items-center justify-between border-b border-[var(--line)] pb-3"><span class="eyebrow">Runtime trace</span><span class="status-dot" aria-label="Static snapshot: ready"></span></div><p class="mt-5 text-xs text-[var(--muted)]">SESSION / PERSONAL-SITE / 2026</p><ol class="trace-list mt-6"><li><span>01</span><div><strong>Observe</strong><small>find the real constraint</small></div></li><li><span>02</span><div><strong>Compose</strong><small>make the smallest useful loop</small></div></li><li><span>03</span><div><strong>Verify</strong><small>keep the evidence in the system</small></div></li></ol></aside>
+  </section>
+
+  <section class="border-y border-[var(--line)]" aria-labelledby="directions-title"><div class="mx-auto grid max-w-6xl gap-6 px-5 py-8 lg:grid-cols-[12rem_1fr] lg:px-8"><h2 id="directions-title" class="eyebrow self-center">Working across</h2><ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold sm:text-base">{directions.map((direction, index) => <li class="flex items-center gap-3"><span class="text-xs font-normal text-[var(--signal)]">0{index + 1}</span>{direction}</li>)}</ul></div></section>
+
+  <section class="mx-auto max-w-6xl px-5 py-16 lg:px-8" aria-label="Profile terminal"><Terminal client:visible /></section>
+
+  <section class="mx-auto max-w-6xl px-5 py-20 lg:px-8" aria-labelledby="featured-title"><div class="section-heading"><div><p class="eyebrow">Selected systems / {String(featuredProjects.length).padStart(2, '0')}</p><h2 id="featured-title" class="display-face mt-3 text-4xl tracking-[-0.04em] sm:text-5xl">Featured Projects</h2></div><a class="text-sm font-bold text-[var(--signal)] hover:underline" href="/projects">View all projects →</a></div><div class="project-grid mt-10">{featuredProjects.map((project, index) => <ProjectCard {...project.data} headingLevel={3} index={index} />)}</div></section>
+
+  <section class="home-lower border-t border-[var(--line)]" aria-labelledby="articles-title"><div class="mx-auto grid max-w-6xl gap-16 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:px-8"><div><div class="section-heading"><div><p class="eyebrow">Dispatches / latest</p><h2 id="articles-title" class="display-face mt-3 text-4xl tracking-[-0.04em]">Latest Articles</h2></div><a class="text-sm font-bold text-[var(--signal)] hover:underline" href="/blog">Read all →</a></div><div class="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">{articles.map((article) => <a class="article-row" href={`/blog/${article.id}/`}><time datetime={article.data.date.toISOString()}>{article.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</time><div><h3 class="font-semibold">{article.data.title}</h3><p>{article.data.description}</p></div><span aria-hidden="true">↗</span></a>)}</div></div><aside class="github-card" aria-labelledby="github-title"><div class="flex items-center justify-between"><p class="eyebrow">Open log / github</p><span class="status-dot" aria-hidden="true"></span></div><h2 id="github-title" class="display-face mt-4 text-3xl">GitHub Activity</h2><p class="mt-3 text-sm leading-6 text-[var(--muted)]">A static activity snapshot. Follow the source for live commits and experiments.</p><ol class="mt-8 space-y-5">{activity.map(([label, message]) => <li class="flex gap-4 text-sm"><span class="font-mono text-xs text-[var(--signal)]">{label}</span><span>{message}</span></li>)}</ol><a class="mt-8 inline-block text-sm font-bold underline decoration-[var(--signal)] decoration-2 underline-offset-4" href={githubUrl} target="_blank" rel="noreferrer">Open GitHub profile →</a></aside></div></section>
+</BaseLayout>

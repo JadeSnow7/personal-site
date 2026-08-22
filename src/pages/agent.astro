@@ -1,0 +1,7 @@
+---
+import AgentDemo from '../components/AgentDemo';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Agent Demo · AI Engineering Hub" description="A simulated, inspectable Agent Runtime trace. No model or external tool calls are made.">
+  <section class="mx-auto max-w-6xl px-5 py-20 lg:px-8"><p class="eyebrow">Agent / local simulation</p><h1 class="display-face mt-4 max-w-4xl text-5xl tracking-[-0.04em] sm:text-7xl">See the loop before you trust it.</h1><p class="mt-7 max-w-2xl text-lg leading-8 text-[var(--muted)]">An intentionally bounded UI for inspecting the shape of an agent interaction. Everything below is <strong>SIMULATED</strong>; this page never calls a model or network API.</p><div class="mt-12"><AgentDemo client:load /></div></section>
+</BaseLayout>
