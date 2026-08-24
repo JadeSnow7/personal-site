@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const notes = (await getCollection('notes')).filter(({ data }) => !data.draft);
+---
+<BaseLayout title="Notes · AI Engineering Hub" description="胡傲东关于 AI engineering、系统设计与可靠工具的短篇 notes。" keywords={['Engineering Notes', 'System Design', 'AI Agent']}>
+  <section class="mx-auto max-w-4xl px-5 py-20 lg:px-8"><p class="eyebrow">Notes / working memory</p><h1 class="display-face mt-4 text-5xl tracking-[-0.04em]">Short observations.</h1><div class="mt-12 space-y-5">{notes.map((note) => <article class="border-l-2 border-[var(--line)] pl-5"><h2 class="text-xl font-semibold">{note.data.title}</h2><p class="mt-2 text-[var(--muted)]">{note.data.description}</p></article>)}</div></section>
+</BaseLayout>

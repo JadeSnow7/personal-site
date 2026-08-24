@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const lanes = [
+  { label: 'Now', items: ['Building the editorial layers of this hub', 'Writing notes on agent boundaries and evidence'] },
+  { label: 'Next', items: ['Connect a real Agent Demo backend behind an explicit API boundary', 'Add verified code walkthroughs and runnable examples'] },
+  { label: 'Later', items: ['GraphRAG experiments', 'Personal AI Assistant', 'Observable and verifiable runtime sessions'] },
+];
+---
+<BaseLayout title="Now · AI Engineering Hub" description="胡傲东现在正在做什么：AI Engineering、Agent Runtime 和个人知识系统路线。" keywords={['Now', 'AI Engineer', 'Agent Runtime', 'GraphRAG', 'Personal AI Assistant']}>
+  <section class="mx-auto max-w-5xl px-5 py-20 lg:px-8"><p class="eyebrow">Now / status board</p><h1 class="display-face mt-4 text-5xl tracking-[-0.04em] sm:text-7xl">The work in motion.</h1><p class="mt-7 max-w-2xl text-lg leading-8 text-[var(--muted)]">A time-bound snapshot of attention. This page describes direction, not completed deliverables.</p><div class="mt-14 grid gap-px border border-[var(--line)] bg-[var(--line)] md:grid-cols-3">{lanes.map((lane, index) => <section class="bg-[var(--paper)] p-6"><p class="eyebrow">0{index + 1} / {lane.label}</p><ul class="mt-7 space-y-5 text-lg leading-7">{lane.items.map((item) => <li class="border-l-2 border-[var(--signal)] pl-4">{item}</li>)}</ul></section>)}</div></section>
+</BaseLayout>

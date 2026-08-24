@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { readingTime } from '../../utils/reading-time';
+import { absoluteUrl } from '../../utils/seo';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog', ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const entries = (await getCollection('blog')).filter(({ data }) => !data.draft).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const currentIndex = entries.findIndex((item) => item.id === entry.id);
+const previous = entries[currentIndex + 1];
+const next = entries[currentIndex - 1];
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.date.toISOString(),
+  author: { '@type': 'Person', name: '胡傲东', url: absoluteUrl('/') },
+  mainEntityOfPage: absoluteUrl(`/blog/${entry.id}/`),
+  keywords: entry.data.tags,
+};
+---
+<BaseLayout title={`${entry.data.title} · AI Engineering Hub`} description={entry.data.description} ogType="article" keywords={entry.data.tags} jsonLd={articleSchema}>
+  <article class="mx-auto max-w-6xl px-5 py-20 lg:px-8">
+    <header class="max-w-3xl border-b border-[var(--line)] pb-10"><a class="eyebrow hover:underline" href="/blog">← Back to dispatches</a><h1 class="display-face mt-6 text-5xl leading-tight tracking-[-0.04em] sm:text-7xl">{entry.data.title}</h1><p class="mt-6 text-lg leading-8 text-[var(--muted)]">{entry.data.description}</p><div class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[var(--muted)]"><time datetime={entry.data.date.toISOString()}>{entry.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</time><span>{readingTime(entry.body)} min read</span><span>{entry.data.tags.join(' · ')}</span></div></header>
+    <div class="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_14rem]"><div class="prose-content"><Content /></div>{headings.length > 0 && <aside class="hidden lg:block"><p class="eyebrow">On this page</p><nav aria-label="Table of contents" class="mt-4 border-l border-[var(--line)] pl-4 text-sm text-[var(--muted)]"><ul class="space-y-3">{headings.map((heading) => <li><a class="hover:text-[var(--signal)]" href={`#${heading.slug}`}>{heading.text}</a></li>)}</ul></nav></aside>}</div>
+    <nav class="mt-20 grid gap-4 border-t border-[var(--line)] pt-8 sm:grid-cols-2" aria-label="Article navigation">{previous ? <a class="border border-[var(--line)] p-4 hover:border-[var(--signal)]" href={`/blog/${previous.id}/`}><span class="eyebrow">Previous</span><strong class="mt-3 block">{previous.data.title}</strong></a> : <span></span>}{next && <a class="border border-[var(--line)] p-4 text-right hover:border-[var(--signal)]" href={`/blog/${next.id}/`}><span class="eyebrow">Next</span><strong class="mt-3 block">{next.data.title}</strong></a>}</nav>
+  </article>
+</BaseLayout>

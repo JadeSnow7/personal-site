@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { absoluteUrl } from '../../utils/seo';
+import { projectPriority } from '../../utils/projects';
+
+const projects = (await getCollection('projects'))
+  .filter(({ data }) => !data.draft)
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || projectPriority(a.id) - projectPriority(b.id) || b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const projectSchemas = projects.map((project) => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: project.data.title,
+  description: project.data.description,
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Web',
+  url: absoluteUrl('/projects'),
+  keywords: project.data.stack,
+}));
+---
+<BaseLayout title="Projects · AI Engineering Hub" description="Projects by 胡傲东: AI Native Game Development, Agent Runtime, and AI teaching systems." keywords={['Forge Studio', 'Agent Harness', 'GraphRAG', 'Multi-Agent', 'Rust', 'AI Agent']} jsonLd={projectSchemas}>
+  <section class="mx-auto max-w-6xl px-5 py-20 lg:px-8">
+    <p class="eyebrow">Projects / systems in progress</p>
+    <h1 class="display-face mt-4 max-w-4xl text-5xl tracking-[-0.04em] sm:text-7xl">Things being made.</h1>
+    <p class="mt-7 max-w-2xl text-lg leading-8 text-[var(--muted)]">A deliberately honest catalogue: concepts, active builds, and the tools that are ready to be inspected. A missing demo means it is not public yet.</p>
+    <div class="project-grid mt-12">{projects.map((project, index) => <ProjectCard {...project.data} index={index} />)}</div>
+  </section>
+</BaseLayout>

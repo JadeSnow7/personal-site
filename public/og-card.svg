@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">胡傲东 · AI Engineer</title>
+  <desc id="desc">Agent Runtime and AI Native Tools</desc>
+  <rect width="1200" height="630" fill="#f4f0e8"/>
+  <path d="M0 0h1200v22H0z" fill="#b84d2c"/>
+  <text x="90" y="150" fill="#b84d2c" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">AI ENGINEER / FIELD OFFICE 001</text>
+  <text x="90" y="270" fill="#252320" font-family="Georgia,serif" font-size="72" font-weight="700">胡傲东</text>
+  <text x="90" y="355" fill="#252320" font-family="Georgia,serif" font-size="54">Agent Runtime</text>
+  <text x="90" y="425" fill="#252320" font-family="Georgia,serif" font-size="54">&amp; AI Native Tools</text>
+  <path d="M960 170h110v290H960z" fill="none" stroke="#d8d0c3" stroke-width="3"/><circle cx="1015" cy="205" r="8" fill="#b84d2c"/><path d="M1015 240v165" stroke="#b84d2c" stroke-width="3"/><text x="982" y="445" fill="#766f66" font-family="monospace" font-size="14" transform="rotate(-90 982 445)">RUNTIME / TRACE / EVIDENCE</text>
+</svg>

@@ -1,0 +1,21 @@
+---
+const links = [
+  ['About', '/about'],
+  ['Blog', '/blog'],
+  ['Projects', '/projects'],
+  ['Notes', '/notes'],
+  ['Agent', '/agent'],
+  ['Lab', '/lab'],
+  ['Architecture', '/architecture'],
+  ['Books', '/books'],
+  ['Now', '/now'],
+];
+---
+<header class="border-b border-[var(--line)]">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 lg:px-8">
+    <a class="font-bold tracking-tight" href="/">AEH<span class="text-[var(--signal)]">_</span></a>
+    <nav aria-label="Primary navigation" class="site-nav flex flex-wrap justify-end gap-3 text-xs text-[var(--muted)] sm:gap-6 sm:text-sm">
+      {links.map(([label, href]) => <a class="transition-colors hover:text-[var(--signal)]" href={href}>{label}</a>)}
+    </nav>
+  </div>
+</header>

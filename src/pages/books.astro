@@ -1,0 +1,8 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+const books = (await getCollection('books')).filter(({ data }) => !data.draft);
+---
+<BaseLayout title="Books · AI Engineering Hub" description="正在阅读和整理的系统设计、AI Engineering 与软件工程书籍。" keywords={['Books', 'System Design', 'AI Engineering', 'Reading Notes']}>
+  <section class="mx-auto max-w-5xl px-5 py-20 lg:px-8"><p class="eyebrow">Books / working shelf</p><h1 class="display-face mt-4 text-5xl tracking-[-0.04em] sm:text-7xl">References in motion.</h1><p class="mt-7 max-w-2xl text-lg leading-8 text-[var(--muted)]">A reading shelf, not a list of endorsements. Finished status and notes are added only after the work is actually done.</p><div class="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">{books.map((book) => <article class="grid gap-3 py-7 sm:grid-cols-[1fr_auto] sm:gap-8"><div><p class="eyebrow">{book.data.status}</p><h2 class="mt-2 text-2xl font-semibold">{book.data.title}</h2><p class="mt-1 text-sm text-[var(--muted)]">{book.data.author}</p><p class="mt-4 max-w-2xl text-[var(--muted)]">{book.data.description}</p></div><ul class="flex flex-wrap content-start gap-2 sm:justify-end">{book.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul></article>)}</div></section>
+</BaseLayout>

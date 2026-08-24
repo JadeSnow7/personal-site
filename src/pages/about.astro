@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const directions = ['C++ Development', 'TypeScript + React (Full-Stack)', 'Client-side Development', 'AI Agent / Runtime Engineering'];
+---
+<BaseLayout title="About · 胡傲东 · AI Engineering Hub" description="胡傲东，独立开发者。从 C++、全栈与客户端开发，到 Agent Runtime 与 Harness Engineering 的工作方法与转向。" keywords={['胡傲东', 'Independent Developer', 'AI Agent', 'Agent Runtime', 'Harness Engineering', 'Vibe Coding']}>
+  <section class="mx-auto max-w-3xl px-5 py-20 lg:px-8">
+    <p class="eyebrow">About / operating principles</p>
+    <h1 class="display-face mt-4 text-5xl tracking-[-0.04em]">From vibe coding to verifying it.</h1>
+    <p class="mt-8 text-xl leading-9 text-[var(--muted)]">I'm Hu Aodong (胡傲东), an independent developer. Most of what I've shipped sits close to the runtime — C++ systems, full-stack products in TypeScript and React, and client-side software people actually install and run.</p>
+
+    <div class="mt-16 border-t border-[var(--line)] pt-12">
+      <p class="eyebrow">What I work on</p>
+      <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold sm:text-base">{directions.map((direction, index) => <li class="flex items-center gap-3"><span class="text-xs font-normal text-[var(--signal)]">0{index + 1}</span>{direction}</li>)}</ul>
+    </div>
+
+    <div class="mt-16 border-t border-[var(--line)] pt-12">
+      <p class="eyebrow">How I got here</p>
+      <h2 class="mt-4 text-2xl font-semibold">The vibe coding turn.</h2>
+      <p class="mt-5 text-base leading-7 text-[var(--muted)]">The shift started while I was building an AI video generation client. I leaned on vibe coding — describing what I wanted and letting the model fill in the rest — and it was fast, almost uncomfortably so. Features that used to take a week were showing up in an afternoon.</p>
+      <p class="mt-5 text-base leading-7 text-[var(--muted)]">What stuck with me wasn't the speed. It was how little I could actually verify about what had been generated until something broke. That gap — between an AI producing plausible-looking code and me being able to trust it — is what pulled me toward agent runtimes, harnesses, and evaluation loops instead of just shipping more features on faith.</p>
+      <p class="mt-5 text-base leading-7 text-[var(--muted)]">This site is where that shift gets documented in public: not finished claims, but the actual state of things — what's built, what's simulated, and what's still just a direction.</p>
+    </div>
+
+    <div class="mt-16 border-t border-[var(--line)] pt-12">
+      <p class="eyebrow">How I work</p>
+      <h2 class="mt-4 text-2xl font-semibold">Observe, compose, verify.</h2>
+      <ol class="trace-list mt-8">
+        <li><span>01</span><div><strong>Observe</strong><small>find the real constraint before writing anything</small></div></li>
+        <li><span>02</span><div><strong>Compose</strong><small>build the smallest loop that's actually useful</small></div></li>
+        <li><span>03</span><div><strong>Verify</strong><small>keep the evidence inside the system, not in a claim</small></div></li>
+      </ol>
+    </div>
+
+    <div class="mt-16 border-t border-[var(--line)] pt-12">
+      <p class="eyebrow">Get in touch</p>
+      <h2 class="mt-4 text-2xl font-semibold">Building most of this in the open.</h2>
+      <p class="mt-5 max-w-xl text-base leading-7 text-[var(--muted)]">If something here is useful, broken, or worth arguing about, reach out.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="button button-signal" href="mailto:hu.aodong@icloud.com">Email <span aria-hidden="true">↗</span></a>
+        <a class="button" href="https://github.com/JadeSnow7" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
