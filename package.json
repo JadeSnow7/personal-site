@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/generate-csp.mjs",
+    "test:csp": "node scripts/verify-csp.mjs",
     "check": "astro check",
     "preview": "astro preview"
   },
